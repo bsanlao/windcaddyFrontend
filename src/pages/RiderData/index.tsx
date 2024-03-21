@@ -14,14 +14,24 @@ import {
     TextField
 } from '@mui/material';
 
-const deportes = [ "Windsurf", "Kitesurf", "Wingfoil" ]
-const nivel = [ "Novato [<2 años]", "Avanzado [>2 años]", "Pro" ]
+const deportes = ["Windsurf", "Kitesurf", "Wingfoil"];
+const nivel = ["Novato [<2 años]", "Avanzado [>2 años]", "Pro"];
+
 export default function RiderData() {
     const navigate = useNavigate();
-    const [selectedDeporte, setSelectedDeporte] = React.useState("");
-    const [selectedNivel, setSelectedNivel] = React.useState("");
-    const [peso, setPeso] = React.useState("");
+    const [selectedDeporte, setSelectedDeporte] = useState("");
+    const [selectedNivel, setSelectedNivel] = useState("");
+    const [peso, setPeso] = useState("");
+    const [buttonDisabled, setButtonDisabled] = useState(true);
 
+    useEffect(() => {
+        // Verificar si todos los campos tienen valores
+        if (selectedDeporte !== "" && selectedNivel !== "" && peso !== "") {
+            setButtonDisabled(false);
+        } else {
+            setButtonDisabled(true);
+        }
+    }, [selectedDeporte, selectedNivel, peso]);
 
     const handleDeporteChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedDeporte(event.target.value);
@@ -116,11 +126,10 @@ export default function RiderData() {
                 >
                     <Button variant="contained"
                             color="primary"
-                            onClick={handleGuardarDatos}>Comenzar a valorar!</Button>
+                            onClick={handleGuardarDatos}
+                            disabled={buttonDisabled}>Comenzar a valorar!</Button>
                 </CardActions>
             </Card>
         </Box>
     );
 };
-
-
