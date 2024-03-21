@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react-jsx", // or "react-jsxdev" if you're in a development environment
+    "esModuleInterop": true,
+    "strict": true
+  }
+}
