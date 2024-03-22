@@ -106,10 +106,10 @@ export default function WeatherCondition() {
             idModalidad: condition?.idModalidad || 0,
             modalidad: condition?.modalidad || '',
             valoracion: selectedValoration ? parseInt(selectedValoration) : 0,
-            perfilRider: formData.perfilRider,
-            pesoRider: parseInt(formData.pesoRider),
+            perfilRider: formData.nivel,
+            pesoRider: parseFloat(formData.peso),
             kiteSize: 0,
-            sailSize: parseInt(selectedWindSail),
+            sailSize: parseFloat(selectedWindSail),
             wingSize: 0,
             kiteBoardSize: 0,
             kiteBoardType: '',
@@ -129,7 +129,9 @@ export default function WeatherCondition() {
             getCondition().then((response) => {
                 if (response) {
                     console.log('Otras condiciones cargadas exitosamente:', response);
-                    window.location.reload();
+                    console.log(formData.peso);
+                    console.log(formData.nivel);
+                    /*window.location.reload();*/
                 } else {
                     console.error("La respuesta de getCondition() es undefined");
                 }
