@@ -32,3 +32,9 @@ export interface ConditionToLabel {
   "wingFfoilSize": number,
   "labeled": boolean
 }
+
+export interface ConditionToLabelResponse
+{
+  success: boolean;
+  response?: Response;
+}

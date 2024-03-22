@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Typography from '@mui/material/Typography';
-import { getCondition } from "../../api/getConditionToLabel"
+import { getCondition, saveCondition } from "../../api/getConditionToLabel"
 import { ConditionToLabel } from "../../constants";
 import {
-    Button, FormControl, FormControlLabel, FormLabel,
+    Button, FormControl,
     Grid, InputLabel,
-    Link,
-    Paper, Radio, RadioGroup, Select,
+    Paper, Select,
     Table,
     TableBody,
     TableCell,
@@ -38,6 +37,7 @@ interface Props {
 const windSails = [3.0, 3.3, 3.5, 3.7, 4.0, 4.2, 4.5, 4.7, 5.0, 5.5, 6.0, 6.5];
 const windBoards = [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
 const valoration = [1,2,3,4,5];
+
 export default function WeatherCondition() {
     // Leer los datos del localStorage
 
@@ -48,6 +48,7 @@ export default function WeatherCondition() {
     const [selectedWindSail, setSelectedWindSail] = useState("");
     const [selectedWindBoard, setSelectedWindBoard] = useState("");
     const [selectedValoration, setSelectedValoration] = useState("");
+    const [buttonDisabled, setButtonDisabled] = useState(true);
 
     const handleValorationChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedValoration(event.target.value);
@@ -63,9 +64,85 @@ export default function WeatherCondition() {
 
     useEffect(() => {
         getCondition().then((response) => {
-            setCondition(response);
-        })
+            if (response) {
+                setCondition(response);
+            } else {
+                console.error("La respuesta de getCondition() es undefined");
+            }
+        }).catch(error => {
+            console.error("Error al obtener la condición:", error);
+        });
     }, [setCondition]);
+
+    useEffect(() => {
+        // Verificar si los valores de Vela, Tabla y Valoración están cumplimentados
+        if (selectedWindSail !== "" && selectedWindBoard !== "" && selectedValoration !== "") {
+            setButtonDisabled(false); // Habilitar el botón si los valores están presentes
+        } else {
+            setButtonDisabled(true); // Deshabilitar el botón si los valores no están presentes
+        }
+    }, [selectedWindSail, selectedWindBoard, selectedValoration]);
+
+
+    const handleGuardarDatos = async () => {
+        const editedCondition: ConditionToLabel = {
+            id: condition?.id || 0,
+            idSpot: condition?.idSpot || 0,
+            spot: condition?.spot || '',
+            fecha: condition?.fecha || '',
+            dir: condition?.dir || '',
+            velmedia: condition?.velmedia || 0,
+            racha: condition?.racha || 0,
+            alturaOleaje: condition?.alturaOleaje || 0,
+            periodoMedioOleaje: condition?.periodoMedioOleaje || 0,
+            periodoPicoOleaje: condition?.periodoPicoOleaje || 0,
+            direccionOleaje: condition?.direccionOleaje || 0,
+            velocidadViento: condition?.velocidadViento || 0,
+            direccionViento: condition?.direccionViento || 0,
+            velocidadCorriente: condition?.velocidadCorriente || 0,
+            direccionCorriente: condition?.direccionCorriente || 0,
+            idDeporte: condition?.idDeporte || 0,
+            deporte: condition?.deporte || '',
+            idModalidad: condition?.idModalidad || 0,
+            modalidad: condition?.modalidad || '',
+            valoracion: selectedValoration ? parseInt(selectedValoration) : 0,
+            perfilRider: formData.perfilRider,
+            pesoRider: parseInt(formData.pesoRider),
+            kiteSize: 0,
+            sailSize: parseInt(selectedWindSail),
+            wingSize: 0,
+            kiteBoardSize: 0,
+            kiteBoardType: '',
+            windBoardSize: parseInt(selectedWindBoard),
+            windBoardType: '',
+            wingBoardSize: 0,
+            wingFfoilSize: 0,
+            labeled: true
+        };
+
+
+
+        const saveResponse = await saveCondition(editedCondition);
+        if (saveResponse.success) {
+            console.log('Condición guardada exitosamente:', saveResponse.response);
+
+            getCondition().then((response) => {
+                if (response) {
+                    console.log('Otras condiciones cargadas exitosamente:', response);
+                    window.location.reload();
+                } else {
+                    console.error("La respuesta de getCondition() es undefined");
+                }
+            }).catch(error => {
+                console.error("Error al obtener las otras condiciones:", error);
+            });
+
+        } else {
+            console.error('Error al guardar la condición:', saveResponse.response?.statusText);
+        }
+        setButtonDisabled(true);
+    };
+
 
     return (
         <div>
@@ -93,14 +170,15 @@ export default function WeatherCondition() {
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                     <TableCell component="th" scope="row" align="left">
+                                        Id: {condition?.id}<br/>
                                         <b>Spot: {condition?.spot}</b><br/>
-                                        Viento medio: {condition?.velmedia} knots<br/>
-                                        Racha de Viento: {condition?.racha} knots<br/>
-                                        Dirección del Viento: {condition?.direccionViento} degrees [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
+                                        Viento medio: {condition?.velmedia} nudos<br/>
+                                        Racha de Viento: {condition?.racha} nudos<br/>
+                                        Dirección del Viento: {condition?.direccionViento} grados [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                         Altura Oleaje: {condition?.alturaOleaje} m<br/>
                                         Periodo Medio del Oleaje: {condition?.periodoMedioOleaje} s<br/>
                                         Periodo Pico del Oleaje: {condition?.periodoPicoOleaje} s<br/>
-                                        Dirección del Oleaje: {condition?.direccionOleaje} degrees [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
+                                        Dirección del Oleaje: {condition?.direccionOleaje} grados [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                     </TableCell>
                                     <TableCell align="center">
                                         <FormControl fullWidth sx={{ marginBottom: '10px' }}>
@@ -144,6 +222,13 @@ export default function WeatherCondition() {
                                                     <MenuItem key={index} value={valoration}>{valoration}</MenuItem>
                                                 ))}
                                             </Select>
+                                        </FormControl>
+                                        <FormControl fullWidth sx={{ marginBottom: '10px' }}>
+                                            <Button variant="contained"
+                                                    color="primary"
+                                                    onClick={handleGuardarDatos}
+                                                    disabled={buttonDisabled}
+                                                    >Siguiente</Button>
                                         </FormControl>
                                     </TableCell>
                                 </TableRow>

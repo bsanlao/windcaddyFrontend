@@ -19,6 +19,7 @@ export default function RiderData() {
     const [selectedDeporte, setSelectedDeporte] = useState("");
     const [selectedNivel, setSelectedNivel] = useState("");
     const [peso, setPeso] = useState("");
+    const [edad, setEdad] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
     useEffect(() => {
@@ -48,6 +49,16 @@ export default function RiderData() {
         }
     };
 
+    const handleEdadChange = (event: { target: { value: any; }; }) => {
+        const value = event.target.value;
+        // Validar que el valor esté dentro del rango de 0 a 120
+        if (value >= 0 && value <= 100) {
+            setEdad(value);
+        } else {
+            alert("La edad no puede ser superior a 100 años.")
+        }
+    };
+
     const handleGuardarDatos = () => {
         // Guardar los datos en el localStorage
         localStorage.setItem("formularioDatos", JSON.stringify({
@@ -66,6 +77,20 @@ export default function RiderData() {
                 Introduce tus datos
             </Typography>
             <Grid container maxWidth={500} spacing={2} justifyContent={"center"} alignItems={"center"} >
+
+                {/*
+                <Grid item md={12}>
+                    <FormControl fullWidth>
+                        <TextField
+                            id="Edad"
+                            label="Cuál es tu edad?"
+                            type={"number"}
+                            value={edad}
+                            onChange={handleEdadChange}
+                        />
+                    </FormControl>
+                </Grid>
+                */}
                 <Grid item md={12}>
                     <FormControl fullWidth>
                         <TextField
@@ -77,6 +102,7 @@ export default function RiderData() {
                         />
                     </FormControl>
                 </Grid>
+
                 <Grid item md={12}>
                     <FormControl fullWidth>
                         <InputLabel id="deportes-label">Cuál es tu deporte?</InputLabel>
@@ -88,7 +114,7 @@ export default function RiderData() {
                             onChange={handleDeporteChange}
                         >
                             {deportes.map((deporte, index) => (
-                                <MenuItem key={deporte} value={deporte}>{deporte}</MenuItem>
+                                <MenuItem key={deporte} value={deporte} disabled={deporte !== "Windsurf"}>{deporte}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
