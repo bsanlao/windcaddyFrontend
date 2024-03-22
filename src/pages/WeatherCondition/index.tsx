@@ -109,6 +109,7 @@ export default function WeatherCondition() {
                                                 labelId="windsail-label"
                                                 id="windsail-select"
                                                 value={selectedWindSail}
+                                                label="Vela (m2)"
                                                 onChange={handleWindSailChange}
                                             >
                                                 {windSails.map((sail, index) => (
@@ -122,6 +123,7 @@ export default function WeatherCondition() {
                                                 labelId="windboard-label"
                                                 id="windboard-select"
                                                 value={selectedWindBoard}
+                                                label="Tabla (L)"
                                                 onChange={handleWindBoardChange}
                                             >
                                                 {windBoards.map((board, index) => (
@@ -135,6 +137,7 @@ export default function WeatherCondition() {
                                                 labelId="valoration-label"
                                                 id="valoration-select"
                                                 value={selectedValoration}
+                                                label="Valoración"
                                                 onChange={handleValorationChange}
                                             >
                                                 {valoration.map((valoration, index) => (
@@ -145,7 +148,6 @@ export default function WeatherCondition() {
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
-
                         </Table>
                     </TableContainer>
                 </Grid>

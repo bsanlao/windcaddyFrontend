@@ -1,18 +1,15 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import React, { useEffect, useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 
 import {
-    Box, Button,
-    CardActions,
-    CardHeader,
+    Button,
     FormControl,
     Grid, InputLabel,
-    Paper, Select,
+    Select,
     TextField
 } from '@mui/material';
+import Typography from "@mui/material/Typography";
 
 const deportes = ["Windsurf", "Kitesurf", "Wingfoil"];
 const nivel = ["Novel [<2 años]", "Avanzado [>2 años]", "Pro"];
@@ -64,72 +61,61 @@ export default function RiderData() {
     };
 
     return (
-        <Box sx={{ maxWidth: 500 }}>
-            <Card variant="outlined">
-                <CardHeader
-                    sx={{ textAlign: 'center' }}
-                    title="Inserta tus datos"
-                />
-                <CardContent sx={{ padding: '0 16px' }}>
-                    <Grid container spacing={2}>
-                        <Grid item md={12}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    id="Peso"
-                                    label="Cuánto pesas?"
-                                    type={"number"}
-                                    value={peso}
-                                    onChange={handlePesoChange}
-                                />
-                            </FormControl>
-                        </Grid>
-                        <Grid item md={12}>
-                            <FormControl fullWidth>
-                                <InputLabel id="deportes-label">Cuál es tu deporte?</InputLabel>
-                                <Select
-                                    labelId="deportes-label"
-                                    id="deportes-select"
-                                    value={selectedDeporte}
-                                    onChange={handleDeporteChange}
-                                >
-                                    {deportes.map((deporte, index) => (
-                                        <MenuItem key={index} value={deporte} disabled={deporte !== "Windsurf"}>
-                                            {deporte}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item md={12}>
-                            <FormControl fullWidth>
-                                <InputLabel id="nivel-label">Cuál es tu nivel?</InputLabel>
-                                <Select
-                                    labelId="nivel-label"
-                                    id="nivel-select"
-                                    value={selectedNivel}
-                                    onChange={handleNivelChange}
-                                >
-                                    {nivel.map((nivel, index) => (
-                                        <MenuItem key={index} value={nivel}>{nivel}</MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-                <CardActions
-                    sx={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        alignItems: "flex-start",
-                        padding: '16px',
-                    }}
-                >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography variant="h4" gutterBottom align="center">
+                Introduce tus datos
+            </Typography>
+            <Grid container maxWidth={500} spacing={2} justifyContent={"center"} alignItems={"center"} >
+                <Grid item md={12}>
+                    <FormControl fullWidth>
+                        <TextField
+                            id="Peso"
+                            label="Cuánto pesas?"
+                            type={"number"}
+                            value={peso}
+                            onChange={handlePesoChange}
+                        />
+                    </FormControl>
+                </Grid>
+                <Grid item md={12}>
+                    <FormControl fullWidth>
+                        <InputLabel id="deportes-label">Cuál es tu deporte?</InputLabel>
+                        <Select
+                            labelId="deportes-label"
+                            id="deportes-select"
+                            value={selectedDeporte}
+                            label="Cuál es tu deporte?"
+                            onChange={handleDeporteChange}
+                        >
+                            {deportes.map((deporte, index) => (
+                                <MenuItem key={deporte} value={deporte}>{deporte}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item md={12}>
+                    <FormControl fullWidth>
+                        <InputLabel id="nivel-label">Cuál es tu nivel?</InputLabel>
+                        <Select
+                            labelId="nivel-label"
+                            id="nivel-select"
+                            value={selectedNivel}
+                            label="Cuál es tu nivel?"
+                            onChange={handleNivelChange}
+                        >
+                            {nivel.map((nivel, index) => (
+                                <MenuItem key={index} value={nivel}>{nivel}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item md={12}>
                     <Button variant="contained"
                             color="primary"
                             onClick={handleGuardarDatos}
                             disabled={buttonDisabled}>Comenzar a valorar!</Button>
-                </CardActions>
-            </Card>
-        </Box>
+                </Grid>
+            </Grid>
+        </div>
     );
 };
