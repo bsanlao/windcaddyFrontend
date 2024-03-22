@@ -103,7 +103,7 @@ export default function WeatherCondition() {
                                         Dirección del Oleaje: {condition?.direccionOleaje} degrees [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                     </TableCell>
                                     <TableCell align="center">
-                                        <FormControl fullWidth>
+                                        <FormControl fullWidth sx={{ marginBottom: '10px' }}>
                                             <InputLabel id="windsail-label">Vela (m2)</InputLabel>
                                             <Select
                                                 labelId="windsail-label"
@@ -116,7 +116,7 @@ export default function WeatherCondition() {
                                                 ))}
                                             </Select>
                                         </FormControl>
-                                        <FormControl fullWidth>
+                                        <FormControl fullWidth sx={{ marginBottom: '10px' }}>
                                             <InputLabel id="windboard-label">Tabla (L)</InputLabel>
                                             <Select
                                                 labelId="windboard-label"
@@ -129,7 +129,7 @@ export default function WeatherCondition() {
                                                 ))}
                                             </Select>
                                         </FormControl>
-                                        <FormControl fullWidth>
+                                        <FormControl fullWidth sx={{ marginBottom: '10px' }}>
                                             <InputLabel id="valoration-label">Valoración</InputLabel>
                                             <Select
                                                 labelId="valoration-label"
@@ -145,6 +145,7 @@ export default function WeatherCondition() {
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
+
                         </Table>
                     </TableContainer>
                 </Grid>
