@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 const deportes = ["Windsurf", "Kitesurf", "Wingfoil"];
-const nivel = ["Novato [<2 años]", "Avanzado [>2 años]", "Pro"];
+const nivel = ["Novel [<2 años]", "Avanzado [>2 años]", "Pro"];
 
 export default function RiderData() {
     const navigate = useNavigate();
