@@ -131,7 +131,7 @@ export default function WeatherCondition() {
                     console.log('Otras condiciones cargadas exitosamente:', response);
                     console.log(formData.peso);
                     console.log(formData.nivel);
-                    /*window.location.reload();*/
+                    window.location.reload();
                 } else {
                     console.error("La respuesta de getCondition() es undefined");
                 }
@@ -171,16 +171,20 @@ export default function WeatherCondition() {
                             </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell component="th" scope="row" align="left">
-                                        Id: {condition?.id}<br/>
+                                    <TableCell component="th" scope="row" align="left" valign="top">
+                                        {/*Id: {condition?.id}<br/>*/}
+                                        Fecha: {condition?.fecha}<br/>
                                         <b>Spot: {condition?.spot}</b><br/>
-                                        Viento medio: {condition?.velmedia} nudos<br/>
+                                        {/*Viento medio: {condition?.velmedia} nudos<br/>*/}
+                                        Viento: {condition?.velocidadViento} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>
-                                        Dirección del Viento: {condition?.direccionViento} grados [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
+                                        Dirección del Viento: {condition?.direccionViento} grados
+                                        [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                         Altura Oleaje: {condition?.alturaOleaje} m<br/>
                                         Periodo Medio del Oleaje: {condition?.periodoMedioOleaje} s<br/>
                                         Periodo Pico del Oleaje: {condition?.periodoPicoOleaje} s<br/>
-                                        Dirección del Oleaje: {condition?.direccionOleaje} grados [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
+                                        Dirección del Oleaje: {condition?.direccionOleaje} grados
+                                        [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                     </TableCell>
                                     <TableCell align="center">
                                         <FormControl fullWidth sx={{ marginBottom: '10px' }}>
