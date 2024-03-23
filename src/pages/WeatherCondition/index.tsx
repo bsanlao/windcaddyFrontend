@@ -83,7 +83,7 @@ export default function WeatherCondition() {
     const location = getLocationById(condition?.idSpot);
     const latitude = location?.lat ?? 0; // Valor predeterminado 0 si la latitud es undefined
     const longitude = location?.lng ?? 0; // Valor predeterminado 0 si la longitud es undefined
-
+    const spot = condition?.spot ?? '';
 
     const handleValorationChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedValoration(event.target.value);
@@ -183,17 +183,7 @@ export default function WeatherCondition() {
 
     return (
         <div>
-            <Typography variant="h5" gutterBottom align="center">
-                {formData ? (
-                    <><b>
-                        {formData.deporte} /
-                        {formData.peso} Kg / {formData.nivel}
-                    </b>
-                    </>
-                ) : (
-                    "No hay datos disponibles"
-                )}
-            </Typography>
+
 
             <Grid container justifyContent="center">
                 <Grid item xs={12} sm={10} md={8} lg={6}>
@@ -202,12 +192,13 @@ export default function WeatherCondition() {
                             <TableHead>
                                 <TableRow>
                                     <TableCell colSpan={2}>
-                                        <MapWithMarker latitude={latitude} longitude={longitude} spot={condition?.spot}/>
+                                        <MapWithMarker latitude={latitude} longitude={longitude} spot={spot}/>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell align="left">
-                                        <b>Spot: {condition?.spot}</b>
+                                        <b>Spot: {condition?.spot}</b><br />
+                                        {formData.deporte} / {formData.peso} Kg / {formData.nivel}
                                     </TableCell>
                                     <TableCell align="center"><b>Material</b></TableCell>
                                 </TableRow>
