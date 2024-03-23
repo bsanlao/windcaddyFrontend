@@ -24,8 +24,8 @@ const MapWithMarker: React.FC<Props> = ({ latitude, longitude, spot }) => {
             if (!mapRef.current || !window.google || !window.google.maps) return;
 
             const map = new window.google.maps.Map(mapRef.current, {
-                center: { lat: latitude, lng: longitude },
-                zoom: 9,
+                center: { lat: 27.967880495702683, lng: -15.599970759198115 },
+                zoom: 10,
             });
 
             new window.google.maps.Marker({
@@ -46,3 +46,5 @@ const MapWithMarker: React.FC<Props> = ({ latitude, longitude, spot }) => {
 };
 
 export default MapWithMarker;
+
+

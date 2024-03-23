@@ -16,6 +16,35 @@ import {
 import MenuItem from "@mui/material/MenuItem";
 import MapWithMarker from "../../api/googleMaps";
 
+
+const spots = [
+    { id: 1, lat: 27.821239, lng: -15.423346 },
+    { id: 2, lat: 27.813116, lng: -15.42223 },
+    { id: 3, lat: 27.794136, lng: -15.472097 },
+    { id: 4, lat: 27.781702, lng: -15.517148 },
+    { id: 5, lat: 27.775931, lng: -15.528585 },
+    { id: 6, lat: 27.741885, lng: -15.568399 },
+    { id: 7, lat: 27.7352, lng: -15.59741 },
+    { id: 8, lat: 28.103746, lng: -15.712681 },
+    { id: 9, lat: 28.158433, lng: -15.665174 },
+    { id: 10, lat: 28.146968, lng: -15.559988 },
+    { id: 11, lat: 28.028679, lng: -15.3910244 },
+    { id: 12, lat: 27.9494986, lng: -15.3767923 },
+    { id: 13, lat: 27.907941, lng: -15.386192 },
+    { id: 14, lat: 27.89309, lng: -15.391145 },
+    { id: 15, lat: 27.8896897, lng: -15.3928967 },
+    { id: 16, lat: 27.847972, lng: -15.412712 },
+    { id: 17, lat: 27.76587, lng: -15.552548 }
+];
+
+
+const getLocationById = (id: number | undefined) => {
+    const location = spots.find(item => item.id === id);
+    return location ? { lat: location.lat, lng: location.lng } : null;
+};
+
+
+
 function gradosACardinal(grados: number | undefined): string {
     if (grados === undefined) {
         return ''; // O devuelve lo que sea apropiado en tu caso
@@ -51,8 +80,9 @@ export default function WeatherCondition() {
     const [selectedValoration, setSelectedValoration] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
-    const latitude = 27.8314782;
-    const longitude = -15.4205079;
+    const location = getLocationById(condition?.idSpot);
+    const latitude = location?.lat ?? 0; // Valor predeterminado 0 si la latitud es undefined
+    const longitude = location?.lng ?? 0; // Valor predeterminado 0 si la longitud es undefined
 
 
     const handleValorationChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -153,11 +183,12 @@ export default function WeatherCondition() {
 
     return (
         <div>
-            <Typography variant="h4" gutterBottom align="center">
+            <Typography variant="h5" gutterBottom align="center">
                 {formData ? (
-                    <>
-                        {formData.deporte} <br />
+                    <><b>
+                        {formData.deporte} /
                         {formData.peso} Kg / {formData.nivel}
+                    </b>
                     </>
                 ) : (
                     "No hay datos disponibles"
@@ -171,33 +202,35 @@ export default function WeatherCondition() {
                             <TableHead>
                                 <TableRow>
                                     <TableCell colSpan={2}>
-                                    <MapWithMarker latitude={latitude} longitude={longitude} spot={condition?.spot}/>
+                                        <MapWithMarker latitude={latitude} longitude={longitude} spot={condition?.spot}/>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell align="left"><b>Condiciones</b></TableCell>
+                                    <TableCell align="left">
+                                        <b>Spot: {condition?.spot}</b>
+                                    </TableCell>
                                     <TableCell align="center"><b>Material</b></TableCell>
                                 </TableRow>
-
-                            </TableHead>
+                          </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell component="th" scope="row" align="left" valign="top">
+                                    <TableCell style={{width: '65%'}} component="th" scope="row" align="left"
+                                               valign="top">
                                         {/*Id: {condition?.id}<br/>*/}
-                                        Fecha: {condition?.fecha}<br/>
-                                        <b>Spot: {condition?.spot}</b><br/>
+                                        {/*Fecha: {condition?.fecha}<br/>*/}
+                                        <b>Condiciones:</b><br/>
                                         {/*Viento medio: {condition?.velmedia} nudos<br/>*/}
                                         Viento: {condition?.velocidadViento} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>
                                         Dirección del Viento: {condition?.direccionViento} grados
                                         [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                         Altura Oleaje: {condition?.alturaOleaje} m<br/>
-                                        Periodo Medio del Oleaje: {condition?.periodoMedioOleaje} s<br/>
+                                        Periodo Medio del Oleaje: {condition?.periodoMedioOleaje} s <br/>
                                         Periodo Pico del Oleaje: {condition?.periodoPicoOleaje} s<br/>
                                         Dirección del Oleaje: {condition?.direccionOleaje} grados
                                         [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
                                     </TableCell>
-                                    <TableCell align="center">
+                                    <TableCell align="center" style={{width: '35%'}}>
                                         <FormControl fullWidth sx={{ marginBottom: '10px' }}>
                                             <InputLabel id="windsail-label">Vela (m2)</InputLabel>
                                             <Select
@@ -240,6 +273,10 @@ export default function WeatherCondition() {
                                                 ))}
                                             </Select>
                                         </FormControl>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={2}>
                                         <FormControl fullWidth sx={{ marginBottom: '10px' }}>
                                             <Button variant="contained"
                                                     color="primary"

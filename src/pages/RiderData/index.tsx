@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import {
     Button,
     FormControl,
-    Grid, InputLabel,
-    Select,
+    Grid, InputLabel, Paper,
+    Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
     TextField
 } from '@mui/material';
 import Typography from "@mui/material/Typography";
+import MapWithMarker from "../../api/googleMaps";
 
 const deportes = ["Windsurf", "Kitesurf", "Wingfoil"];
 const nivel = ["Novel [<2 años]", "Avanzado [>2 años]", "Pro"];
@@ -76,70 +77,73 @@ export default function RiderData() {
             <Typography variant="h4" gutterBottom align="center">
                 Introduce tus datos
             </Typography>
-            <Grid container maxWidth={500} spacing={2} justifyContent={"center"} alignItems={"center"} >
 
-                {/*
-                <Grid item md={12}>
-                    <FormControl fullWidth>
-                        <TextField
-                            id="Edad"
-                            label="Cuál es tu edad?"
-                            type={"number"}
-                            value={edad}
-                            onChange={handleEdadChange}
-                        />
-                    </FormControl>
-                </Grid>
-                */}
-                <Grid item md={12}>
-                    <FormControl fullWidth>
-                        <TextField
-                            id="Peso"
-                            label="Cuánto pesas?"
-                            type={"number"}
-                            value={peso}
-                            onChange={handlePesoChange}
-                        />
-                    </FormControl>
-                </Grid>
 
-                <Grid item md={12}>
-                    <FormControl fullWidth>
-                        <InputLabel id="deportes-label">Cuál es tu deporte?</InputLabel>
-                        <Select
-                            labelId="deportes-label"
-                            id="deportes-select"
-                            value={selectedDeporte}
-                            label="Cuál es tu deporte?"
-                            onChange={handleDeporteChange}
-                        >
-                            {deportes.map((deporte, index) => (
-                                <MenuItem key={deporte} value={deporte} disabled={deporte !== "Windsurf"}>{deporte}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item md={12}>
-                    <FormControl fullWidth>
-                        <InputLabel id="nivel-label">Cuál es tu nivel?</InputLabel>
-                        <Select
-                            labelId="nivel-label"
-                            id="nivel-select"
-                            value={selectedNivel}
-                            label="Cuál es tu nivel?"
-                            onChange={handleNivelChange}
-                        >
-                            {nivel.map((nivel, index) => (
-                                <MenuItem key={index} value={nivel}>{nivel}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item md={12}>
-                    <Button variant="contained"
-                            color="primary"
-                            onClick={handleGuardarDatos}
-                            disabled={buttonDisabled}>Comenzar a valorar!</Button>
+            <Grid container justifyContent="center">
+                <Grid item xs={12} sm={10} md={8} lg={6}>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="simple table">
+                            <TableBody>
+                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableCell component="th" scope="row" align="left" valign="top">
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                id="Peso"
+                                                label="Cuánto pesas?"
+                                                type={"number"}
+                                                value={peso}
+                                                onChange={handlePesoChange}
+                                            />
+                                        </FormControl>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                        <FormControl fullWidth>
+                                            <InputLabel id="deportes-label">Cuál es tu deporte?</InputLabel>
+                                            <Select
+                                                labelId="deportes-label"
+                                                id="deportes-select"
+                                                value={selectedDeporte}
+                                                label="Cuál es tu deporte?"
+                                                onChange={handleDeporteChange}
+                                            >
+                                                {deportes.map((deporte, index) => (
+                                                    <MenuItem key={deporte} value={deporte} disabled={deporte !== "Windsurf"}>{deporte}</MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>
+                                        <FormControl fullWidth>
+                                            <InputLabel id="nivel-label">Cuál es tu nivel?</InputLabel>
+                                            <Select
+                                                labelId="nivel-label"
+                                                id="nivel-select"
+                                                value={selectedNivel}
+                                                label="Cuál es tu nivel?"
+                                                onChange={handleNivelChange}
+                                            >
+                                                {nivel.map((nivel, index) => (
+                                                    <MenuItem key={index} value={nivel}>{nivel}</MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell sx={{ border: 0 }}>
+                                        <Button variant="contained"
+                                                color="primary"
+                                                onClick={handleGuardarDatos}
+                                                disabled={buttonDisabled}>Comenzar a valorar!</Button>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </Grid>
             </Grid>
         </div>
