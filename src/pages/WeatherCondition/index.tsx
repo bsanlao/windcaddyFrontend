@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Typography from '@mui/material/Typography';
 import { getCondition, saveCondition } from "../../api/getConditionToLabel"
 import { ConditionToLabel } from "../../constants";
 import {
@@ -15,6 +14,7 @@ import {
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import MapWithMarker from "../../api/googleMaps";
+import {useNavigate} from "react-router-dom";
 
 
 const spots = [
