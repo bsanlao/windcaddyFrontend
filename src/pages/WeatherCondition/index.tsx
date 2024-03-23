@@ -14,6 +14,7 @@ import {
     TableRow
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
+import MapWithMarker from "../../api/googleMaps";
 
 function gradosACardinal(grados: number | undefined): string {
     if (grados === undefined) {
@@ -49,6 +50,10 @@ export default function WeatherCondition() {
     const [selectedWindBoard, setSelectedWindBoard] = useState("");
     const [selectedValoration, setSelectedValoration] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(true);
+
+    const latitude = 27.8314782;
+    const longitude = -15.4205079;
+
 
     const handleValorationChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedValoration(event.target.value);
@@ -165,9 +170,15 @@ export default function WeatherCondition() {
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell colSpan={2}>
+                                    <MapWithMarker latitude={latitude} longitude={longitude} spot={condition?.spot}/>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
                                     <TableCell align="left"><b>Condiciones</b></TableCell>
                                     <TableCell align="center"><b>Material</b></TableCell>
                                 </TableRow>
+
                             </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
