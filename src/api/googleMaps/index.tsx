@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import {GOOGLE_API_KEY} from "../index";
 
 interface Props {
     latitude: number;
@@ -12,7 +13,7 @@ const MapWithMarker: React.FC<Props> = ({ latitude, longitude, spot }) => {
     useEffect(() => {
         const loadGoogleMapsScript = () => {
             const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`;
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`;
             script.async = true;
             script.defer = true;
             document.body.appendChild(script);
