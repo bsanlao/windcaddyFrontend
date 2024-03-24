@@ -44,19 +44,14 @@ const getLocationById = (id: number | undefined) => {
 };
 
 
-
+// Transforma grados a punto cardinal
 function gradosACardinal(grados: number | undefined): string {
     if (grados === undefined) {
-        return ''; // O devuelve lo que sea apropiado en tu caso
+        return ''; //
     }
-
-    // Asegurarse de que el ángulo esté dentro del rango [0, 360)
     grados = (grados + 360) % 360;
-
-    // Definir los rangos para cada componente cardinal
     const direcciones = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO', 'N'];
     const index = Math.round(grados / 45) % 8;
-
     return direcciones[index];
 }
 
@@ -65,8 +60,6 @@ const windBoards = [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
 const valoration = [1,2,3,4,5];
 
 export default function WeatherCondition() {
-    // Leer los datos del localStorage
-
     const formDataString = localStorage.getItem("formularioDatos");
     const formData = formDataString ? JSON.parse(formDataString) : null;
     const [condition, setCondition] =
@@ -151,15 +144,13 @@ export default function WeatherCondition() {
             labeled: true
         };
 
-
-
         const saveResponse = await saveCondition(editedCondition);
         if (saveResponse.success) {
             console.log('Condición guardada exitosamente:', saveResponse.response);
 
             getCondition().then((response) => {
                 if (response) {
-                    console.log('Otras condiciones cargadas exitosamente:', response);
+                    console.log('Nuevas condiciones cargadas.', response);
                     console.log(formData.peso);
                     console.log(formData.nivel);
                     setCondition(response)
@@ -170,7 +161,7 @@ export default function WeatherCondition() {
                     console.error("La respuesta de getCondition() es undefined");
                 }
             }).catch(error => {
-                console.error("Error al obtener las otras condiciones:", error);
+                console.error("Error al obtener las nuevas condiciones:", error);
             });
 
         } else {
@@ -206,10 +197,7 @@ export default function WeatherCondition() {
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                     <TableCell style={{width: '65%'}} component="th" scope="row" align="left"
                                                valign="top">
-                                        {/*Id: {condition?.id}<br/>*/}
-                                        {/*Fecha: {condition?.fecha}<br/>*/}
                                         <b>Condiciones: </b><br/>
-                                        {/*Viento medio: {condition?.velmedia} nudos<br/>*/}
                                         Viento: {condition?.velocidadViento} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>
                                         Dirección del Viento: {condition?.direccionViento} grados
