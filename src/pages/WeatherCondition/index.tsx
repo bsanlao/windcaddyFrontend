@@ -56,15 +56,15 @@ function gradosACardinal(grados: number | undefined): string {
     return direcciones[index];
 }
 
-const windSails = [3.0, 3.3, 3.5, 3.7, 4.0, 4.2, 4.5, 4.7, 5.0, 5.5, 6.0, 6.5];
-const windBoards = [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
+const windSails = [0, 3.0, 3.3, 3.5, 3.7, 4.0, 4.2, 4.5, 4.7, 5.0, 5.5, 6.0, 6.5];
+const windBoards = [0, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
 /*const valoration = [1,2,3,4,5]*/
 const valoration = [
     {id: 1, desc: "Ni me tiro"},
-    {id: 2, desc:"Al menos me mojé"},
+    {id: 2, desc:"Me mojé, un rato"},
     {id: 3, desc:"Buen baño"},
     {id: 4, desc:"Bañazo!"},
-    {id: 5, desc:"Para Pro's e insensatos!"}
+    {id: 5, desc:"Para Pro's!"}
 ]
 
 export default function WeatherCondition() {
@@ -84,6 +84,11 @@ export default function WeatherCondition() {
 
     const handleValorationChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedValoration(event.target.value);
+        console.log(event.target.value);
+        if (event.target.value == "1"){
+            setSelectedWindSail("");
+            setSelectedWindBoard("");
+        }
     };
 
     const handleWindSailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -108,12 +113,24 @@ export default function WeatherCondition() {
 
     useEffect(() => {
         // Verificar si los valores de Vela, Tabla y Valoración están cumplimentados
-        if (selectedWindSail !== "" && selectedWindBoard !== "" && selectedValoration !== "") {
-            setButtonDisabled(false); // Habilitar el botón si los valores están presentes
+        console.log("Valoration:" + selectedValoration)
+        console.log("WindSail:" + selectedWindSail)
+        console.log("WindBoard:" + selectedWindBoard)
+        if (selectedValoration != "") {
+            if (selectedValoration == "1") {
+                setButtonDisabled(false); // Habilitar el botón si los valores están presentes y la valoración es igual a 1
+            } else {
+                if (selectedWindSail != "" && selectedWindBoard !== "") {
+                    setButtonDisabled(false); // Habilitar el botón si los valores están presentes y la valoración no es igual a 1
+                } else {
+                    setButtonDisabled(true); // Deshabilitar el botón si los valores no están presentes
+                }
+            }
         } else {
-            setButtonDisabled(true); // Deshabilitar el botón si los valores no están presentes
+            setButtonDisabled(true); // Deshabilitar el botón si la valoración no está presente
         }
     }, [selectedWindSail, selectedWindBoard, selectedValoration]);
+
 
 
     const handleGuardarDatos = async () => {
@@ -141,17 +158,19 @@ export default function WeatherCondition() {
             perfilRider: formData.nivel,
             pesoRider: parseFloat(formData.peso),
             kiteSize: 0,
-            sailSize: parseFloat(selectedWindSail),
+            sailSize: selectedWindSail == "" ? parseFloat("0") : parseFloat(selectedWindSail),
             wingSize: 0,
             kiteBoardSize: 0,
             kiteBoardType: '',
-            windBoardSize: parseInt(selectedWindBoard),
+            windBoardSize: selectedWindBoard == "" ? parseInt("0") : parseInt(selectedWindBoard),
             windBoardType: '',
             wingBoardSize: 0,
             wingFfoilSize: 0,
             labeled: true
         };
 
+
+        console.log(editedCondition);
         const saveResponse = await saveCondition(editedCondition);
         if (saveResponse.success) {
             console.log('Condición guardada exitosamente:', saveResponse.response);
@@ -233,7 +252,7 @@ export default function WeatherCondition() {
                                                 label="Vela (m2)"
                                                 onChange={handleWindSailChange}
                                             >
-                                                {windSails.map((sail, index) => (
+                                                {windSails.filter(sail => sail !== 0).map((sail, index) => (
                                                     <MenuItem key={index} value={sail}>{sail}</MenuItem>
                                                 ))}
                                             </Select>
@@ -247,9 +266,10 @@ export default function WeatherCondition() {
                                                 label="Tabla (L)"
                                                 onChange={handleWindBoardChange}
                                             >
-                                                {windBoards.map((board, index) => (
+                                                {windBoards.filter(board => board !== 0).map((board, index) => (
                                                     <MenuItem key={index} value={board}>{board}</MenuItem>
                                                 ))}
+
                                             </Select>
                                         </FormControl>
                                         <FormControl fullWidth sx={{ marginBottom: '10px' }}>
