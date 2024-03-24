@@ -61,8 +61,11 @@ export default function RiderData() {
 
     return (
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <img src={process.env.PUBLIC_URL + '/logoUOC.png'} style={{ maxWidth: '80%', height: 'auto' }}
+            <Grid container justifyContent="center">
+                <Grid item xs={12} sm={10} md={8} lg={6}>
+            <img src={process.env.PUBLIC_URL + '/logoUOC.png'} style={{ maxWidth: '100%', height: 'auto' }}
                  alt="Universitat Oberta de Catalunya"/>
+                </Grid></Grid>
             <Typography variant="h4" gutterBottom align="center">
                 Introduce tus datos
             </Typography>
