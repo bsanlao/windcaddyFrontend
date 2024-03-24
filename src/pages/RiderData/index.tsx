@@ -65,12 +65,22 @@ export default function RiderData() {
                 Introduce tus datos
             </Typography>
 
-
             <Grid container justifyContent="center">
                 <Grid item xs={12} sm={10} md={8} lg={6}>
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableBody>
+                                <TableRow>
+                                    <TableCell>
+                                        Los datos introducidos serán usado para mi TFG que consiste en
+                                        desarrollar un algoritmo que dada unas condiciones meteorológicas sea capaz
+                                        de ofrecer una recomendación sobre el material a utilizar según tu peso y condiciones.<br /><br />
+                                        Te pediría que seas un poco riguroso con los datos introducidos ya que de ellos
+                                        dependerá en gran medida la eficacia y utilidad del algoritmo.
+                                        <br /><br />
+                                        Gracias por tu colaboración!
+                                    </TableCell>
+                                </TableRow>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                     <TableCell component="th" scope="row" align="left" valign="top">
                                         <FormControl fullWidth>
