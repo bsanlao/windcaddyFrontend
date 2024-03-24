@@ -214,8 +214,8 @@ export default function WeatherCondition() {
                                 </TableRow>
                                 <TableRow>
                                     <TableCell colSpan={2} align={"center"}>
-                                        Introduce el material que usarías en el spot y condiciones.<br />
-                                        La Valoración debe ser para la modalidad de {condition?.modalidad}<br />
+                                        ¿Qué material usarías con estas condiciones
+                                        para navegar en este spot en olas? <br />
                                     </TableCell>
                                 </TableRow>
 
