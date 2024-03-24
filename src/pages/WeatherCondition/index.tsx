@@ -209,7 +209,7 @@ export default function WeatherCondition() {
                                                valign="top">
                                         {/*Id: {condition?.id}<br/>*/}
                                         {/*Fecha: {condition?.fecha}<br/>*/}
-                                        <b>Condiciones:</b><br/>
+                                        <b>Condiciones: </b>{condition?.id}
                                         {/*Viento medio: {condition?.velmedia} nudos<br/>*/}
                                         Viento: {condition?.velocidadViento} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>
