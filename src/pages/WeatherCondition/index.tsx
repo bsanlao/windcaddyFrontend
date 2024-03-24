@@ -14,8 +14,6 @@ import {
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import MapWithMarker from "../../api/googleMaps";
-import {useNavigate} from "react-router-dom";
-
 
 const spots = [
     { id: 1, lat: 27.821239, lng: -15.423346 },
@@ -58,10 +56,6 @@ function gradosACardinal(grados: number | undefined): string {
     const index = Math.round(grados / 45) % 8;
 
     return direcciones[index];
-}
-
-interface Props {
-    grados?: number; // Hacer el grado opcional con '?'
 }
 
 const windSails = [3.0, 3.3, 3.5, 3.7, 4.0, 4.2, 4.5, 4.7, 5.0, 5.5, 6.0, 6.5];
@@ -209,7 +203,7 @@ export default function WeatherCondition() {
                                                valign="top">
                                         {/*Id: {condition?.id}<br/>*/}
                                         {/*Fecha: {condition?.fecha}<br/>*/}
-                                        <b>Condiciones: </b>{condition?.id}
+                                        <b>Condiciones: </b>{condition?.id}<br/>
                                         {/*Viento medio: {condition?.velmedia} nudos<br/>*/}
                                         Viento: {condition?.velocidadViento} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>

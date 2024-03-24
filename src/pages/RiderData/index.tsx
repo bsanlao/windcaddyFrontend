@@ -6,11 +6,10 @@ import {
     Button,
     FormControl,
     Grid, InputLabel, Paper,
-    Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    Select, Table, TableBody, TableCell, TableContainer, TableRow,
     TextField
 } from '@mui/material';
 import Typography from "@mui/material/Typography";
-import MapWithMarker from "../../api/googleMaps";
 
 const deportes = ["Windsurf", "Kitesurf", "Wingfoil"];
 const nivel = ["Novel [<2 años]", "Avanzado [>2 años]", "Pro"];
@@ -20,7 +19,6 @@ export default function RiderData() {
     const [selectedDeporte, setSelectedDeporte] = useState("");
     const [selectedNivel, setSelectedNivel] = useState("");
     const [peso, setPeso] = useState("");
-    const [edad, setEdad] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
     useEffect(() => {
@@ -49,17 +47,6 @@ export default function RiderData() {
             alert("El peso no puede ser superior a 120 Kg.")
         }
     };
-
-    const handleEdadChange = (event: { target: { value: any; }; }) => {
-        const value = event.target.value;
-        // Validar que el valor esté dentro del rango de 0 a 120
-        if (value >= 0 && value <= 100) {
-            setEdad(value);
-        } else {
-            alert("La edad no puede ser superior a 100 años.")
-        }
-    };
-
     const handleGuardarDatos = () => {
         // Guardar los datos en el localStorage
         localStorage.setItem("formularioDatos", JSON.stringify({
