@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MapWithMarker from "../../api/googleMaps";
 
 
+
 const spots = [
     { id: 1, lat: 27.821239, lng: -15.423346 },
     { id: 2, lat: 27.813116, lng: -15.42223 },
@@ -57,7 +58,14 @@ function gradosACardinal(grados: number | undefined): string {
 
 const windSails = [3.0, 3.3, 3.5, 3.7, 4.0, 4.2, 4.5, 4.7, 5.0, 5.5, 6.0, 6.5];
 const windBoards = [60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
-const valoration = [1,2,3,4,5];
+/*const valoration = [1,2,3,4,5]*/
+const valoration = [
+    {id: 1, desc: "Ni me tiro"},
+    {id: 2, desc:"Al menos me mojé"},
+    {id: 3, desc:"Buen baño"},
+    {id: 4, desc:"Bañazo!"},
+    {id: 5, desc:"Para Pro's e insensatos!"}
+]
 
 export default function WeatherCondition() {
     const formDataString = localStorage.getItem("formularioDatos");
@@ -186,6 +194,14 @@ export default function WeatherCondition() {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
+                                    <TableCell colSpan={2} align={"center"}>
+                                        Introduce el material que usarías en el spot y condiciones.<br />
+                                        La Valoración debe ser para la modalidad de {condition?.modalidad}<br />
+                                        (1-Ni me tiro, 2-Al menos me he mojado, 3-Buen baño, 4-Perfecto, 5-Pa' Pros e insensatos!)
+                                    </TableCell>
+                                </TableRow>
+
+                                <TableRow>
                                     <TableCell align="left">
                                         <b>Spot: {condition?.spot}</b><br />
                                         {formData.deporte} / {formData.peso} Kg / {formData.nivel}
@@ -246,8 +262,8 @@ export default function WeatherCondition() {
                                                 label="Valoración"
                                                 onChange={handleValorationChange}
                                             >
-                                                {valoration.map((valoration, index) => (
-                                                    <MenuItem key={index} value={valoration}>{valoration}</MenuItem>
+                                                {valoration.map((item) => (
+                                                    <MenuItem key={item.id} value={item.id}>{item.desc}</MenuItem>
                                                 ))}
                                             </Select>
                                         </FormControl>
