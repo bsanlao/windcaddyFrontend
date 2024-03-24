@@ -197,7 +197,6 @@ export default function WeatherCondition() {
                                     <TableCell colSpan={2} align={"center"}>
                                         Introduce el material que usarías en el spot y condiciones.<br />
                                         La Valoración debe ser para la modalidad de {condition?.modalidad}<br />
-                                        (1-Ni me tiro, 2-Al menos me he mojado, 3-Buen baño, 4-Perfecto, 5-Pa' Pros e insensatos!)
                                     </TableCell>
                                 </TableRow>
 
