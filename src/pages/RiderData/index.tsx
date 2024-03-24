@@ -60,7 +60,9 @@ export default function RiderData() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <img src={process.env.PUBLIC_URL + '/logoUOC.png'} style={{ maxWidth: '80%', height: 'auto' }}
+                 alt="Universitat Oberta de Catalunya"/>
             <Typography variant="h4" gutterBottom align="center">
                 Introduce tus datos
             </Typography>
@@ -74,14 +76,15 @@ export default function RiderData() {
                                     <TableCell>
                                         Los datos introducidos serán usado para mi TFG que consiste en
                                         desarrollar un algoritmo que dada unas condiciones meteorológicas sea capaz
-                                        de ofrecer una recomendación sobre el material a utilizar según tu peso y condiciones.<br /><br />
+                                        de ofrecer una recomendación sobre el material a utilizar según tu peso y
+                                        condiciones.<br/><br/>
                                         Te pediría que seas un poco riguroso con los datos introducidos ya que de ellos
                                         dependerá en gran medida la eficacia y utilidad del algoritmo.
-                                        <br /><br />
+                                        <br/><br/>
                                         Gracias por tu colaboración!
                                     </TableCell>
                                 </TableRow>
-                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
                                     <TableCell component="th" scope="row" align="left" valign="top">
                                         <FormControl fullWidth>
                                             <TextField
@@ -106,7 +109,8 @@ export default function RiderData() {
                                                 onChange={handleDeporteChange}
                                             >
                                                 {deportes.map((deporte, index) => (
-                                                    <MenuItem key={deporte} value={deporte} disabled={deporte !== "Windsurf"}>{deporte}</MenuItem>
+                                                    <MenuItem key={deporte} value={deporte}
+                                                              disabled={deporte !== "Windsurf"}>{deporte}</MenuItem>
                                                 ))}
                                             </Select>
                                         </FormControl>
@@ -131,7 +135,7 @@ export default function RiderData() {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell sx={{ border: 0 }}>
+                                    <TableCell sx={{border: 0}}>
                                         <Button variant="contained"
                                                 color="primary"
                                                 onClick={handleGuardarDatos}
