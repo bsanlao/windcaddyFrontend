@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { getCondition, saveCondition } from "../../api/getConditionToLabel"
-import { ConditionToLabel } from "../../constants";
+import { ConditionToLabel } from "../../constants"
+
 import {
     Button, FormControl,
     Grid, InputLabel,
@@ -14,6 +15,7 @@ import {
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import MapWithMarker from "../../api/googleMaps";
+
 
 const spots = [
     { id: 1, lat: 27.821239, lng: -15.423346 },
@@ -160,7 +162,10 @@ export default function WeatherCondition() {
                     console.log('Otras condiciones cargadas exitosamente:', response);
                     console.log(formData.peso);
                     console.log(formData.nivel);
-                    window.location.reload();
+                    setCondition(response)
+                    setSelectedValoration("");
+                    setSelectedWindBoard("");
+                    setSelectedWindSail("");
                 } else {
                     console.error("La respuesta de getCondition() es undefined");
                 }
@@ -203,7 +208,7 @@ export default function WeatherCondition() {
                                                valign="top">
                                         {/*Id: {condition?.id}<br/>*/}
                                         {/*Fecha: {condition?.fecha}<br/>*/}
-                                        <b>Condiciones: </b>{condition?.id}<br/>
+                                        <b>Condiciones: </b><br/>
                                         {/*Viento medio: {condition?.velmedia} nudos<br/>*/}
                                         Viento: {condition?.velocidadViento} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>
