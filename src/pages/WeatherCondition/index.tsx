@@ -157,6 +157,7 @@ export default function WeatherCondition() {
             valoracion: selectedValoration ? parseInt(selectedValoration) : 0,
             perfilRider: formData.nivel,
             pesoRider: parseFloat(formData.peso),
+            edadRider: parseFloat(formData.edad),
             kiteSize: 0,
             sailSize: selectedWindSail == "" ? parseFloat("0") : parseFloat(selectedWindSail),
             wingSize: 0,
@@ -179,6 +180,7 @@ export default function WeatherCondition() {
                 if (response) {
                     console.log('Nuevas condiciones cargadas.', response);
                     console.log(formData.peso);
+                    console.log(formData.edad);
                     console.log(formData.nivel);
                     setCondition(response)
                     setSelectedValoration("");
@@ -200,8 +202,6 @@ export default function WeatherCondition() {
 
     return (
         <div>
-
-
             <Grid container justifyContent="center">
                 <Grid item xs={12} sm={10} md={8} lg={6}>
                     <TableContainer component={Paper}>
@@ -221,8 +221,8 @@ export default function WeatherCondition() {
 
                                 <TableRow>
                                     <TableCell align="left">
-                                        <b>Spot: {condition?.spot}</b><br />
-                                        {formData.deporte} / {formData.peso} Kg / {formData.nivel}
+                                        <b>Spot: {condition?.spot} / {formData.deporte} ({condition?.modalidad})</b><br />
+                                        {formData.peso} Kg / {formData.edad} Años / {formData.nivel}
                                     </TableCell>
                                     <TableCell align="center"><b>Material</b></TableCell>
                                 </TableRow>

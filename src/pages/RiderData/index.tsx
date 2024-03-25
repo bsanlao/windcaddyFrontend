@@ -19,6 +19,7 @@ export default function RiderData() {
     const [selectedDeporte, setSelectedDeporte] = useState("");
     const [selectedNivel, setSelectedNivel] = useState("");
     const [peso, setPeso] = useState("");
+    const [edad, setEdad] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
     useEffect(() => {
@@ -47,12 +48,23 @@ export default function RiderData() {
             alert("El peso no puede ser superior a 120 Kg.")
         }
     };
+
+    const handleEdadChange = (event: { target: { value: any; }; }) => {
+        const value = event.target.value;
+        // Validar que el valor esté dentro del rango de 0 a 120
+        if (value >= 0 && value <= 120) {
+            setEdad(value);
+        } else {
+            alert("La edad no puede ser superior a 120 años.")
+        }
+    };
     const handleGuardarDatos = () => {
         // Guardar los datos en el localStorage
         localStorage.setItem("formularioDatos", JSON.stringify({
             deporte: selectedDeporte,
             nivel: selectedNivel,
-            peso: peso
+            peso: peso,
+            edad: edad
         }));
 
         // Redirigir al usuario a /weathercondition
@@ -85,6 +97,19 @@ export default function RiderData() {
                                         dependerá en gran medida la eficacia y utilidad del algoritmo.
                                         <br/><br/>
                                         Gracias por tu colaboración!
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                                    <TableCell component="th" scope="row" align="left" valign="top">
+                                        <FormControl fullWidth>
+                                            <TextField
+                                                id="Edad"
+                                                label="Qué edad tienes?"
+                                                type={"number"}
+                                                value={edad}
+                                                onChange={handleEdadChange}
+                                            />
+                                        </FormControl>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>

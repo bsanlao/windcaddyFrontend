@@ -21,6 +21,7 @@ export interface ConditionToLabel {
   "valoracion": number,
   "perfilRider": string,
   "pesoRider": number,
+  "edadRider": number,
   "kiteSize": number,
   "sailSize": number,
   "wingSize": number,
