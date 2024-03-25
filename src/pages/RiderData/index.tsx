@@ -89,14 +89,13 @@ export default function RiderData() {
                             <TableBody>
                                 <TableRow>
                                     <TableCell>
-                                        Los datos introducidos serán usado para mi TFG que consiste en
-                                        desarrollar un algoritmo que dada unas condiciones meteorológicas sea capaz
-                                        de ofrecer una recomendación sobre el material a utilizar según tu peso y
-                                        condiciones.<br/><br/>
-                                        Te pediría que seas un poco riguroso con los datos introducidos ya que de ellos
-                                        dependerá en gran medida la eficacia y utilidad del algoritmo.
-                                        <br/><br/>
-                                        Gracias por tu colaboración!
+                                        Los datos que proporciones se utilizarán para mi Trabajo de Fin de Grado (TFG),
+                                        el cual implica desarrollar un algoritmo. Este algoritmo, basado en las
+                                        condiciones meteorológicas, tu edad, nivel, peso y spot pretende ofrecer
+                                        recomendaciones sobre el material más adecuado a utilizar.<br/><br/>
+                                        Por favor, sé preciso al introducir los datos, ya que su exactitud influirá
+                                        significativamente en la eficacia y utilidad del algoritmo.<br/><br/>
+                                        ¡Gracias por tu colaboración!"
                                     </TableCell>
                                 </TableRow>
                                 <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
