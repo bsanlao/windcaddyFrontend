@@ -233,7 +233,6 @@ export default function WeatherCondition() {
                                                valign="top">
                                         <b>Condiciones: </b><br/>
                                         Viento: {condition?.velocidadViento} nudos <br/>
-                                        Viento: {condition?.velmedia} nudos <br/>
                                         Racha de Viento: {condition?.racha} nudos<br/>
                                         Dirección del Viento: {condition?.direccionViento} grados
                                         [ {gradosACardinal(condition?.direccionOleaje)} ]<br/>
